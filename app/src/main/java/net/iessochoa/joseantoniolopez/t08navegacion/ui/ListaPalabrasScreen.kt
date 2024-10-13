@@ -1,13 +1,18 @@
 package net.iessochoa.joseantoniolopez.t08navegacion.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,13 +31,24 @@ fun ListaPalabrasScreen(
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         listaPalabras.forEachIndexed { index, item ->
-            Text(
-                text = item,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()
-                    .clickable { onItemClick(item) }
-            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = "mostrar",
+                    modifier = Modifier.clickable {
+                    }
+                )
+                Text(
+                    text = item,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
+                        .clickable { onItemClick(item) }
+                )
+
+            }
             // if (index < listaPalabras.size - 1) {
             HorizontalDivider(color = Color.Gray, thickness = 1.dp)
             //  }

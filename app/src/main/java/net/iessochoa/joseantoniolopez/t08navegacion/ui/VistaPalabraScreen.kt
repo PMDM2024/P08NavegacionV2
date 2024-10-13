@@ -14,10 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import net.iessochoa.joseantoniolopez.t08navegacion.R
 
 @Composable
 fun VistaPalabraScreen(
@@ -29,24 +32,31 @@ fun VistaPalabraScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+        //verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val MiFuente = FontFamily(
+            Font(R.font.dancing_script, FontWeight.Normal) // Asocia la fuente con su peso
+        )
         Text(
             text = palabra,
-            style =MaterialTheme.typography.displayLarge,
-            color = Color.Green,
-            modifier = Modifier.padding(bottom = 16.dp)
+            style =TextStyle(
+                fontFamily = MiFuente,
+                fontSize = 80.sp,
+                textAlign = TextAlign.Center
+            ),
+            color = Color.Blue,
+            modifier = Modifier.padding(bottom = 16.dp, top = 32.dp)
         )
 
         Button(onClick = onVolver) {
-            Text("Volver")
+            Text("Volver Atrás")
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(onClick = onVolverAInicio) {
-            Text("volver a inicio")
+            Text("Volver a inicio")
         }
     }
 }

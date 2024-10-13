@@ -23,7 +23,9 @@ class AppViewModel : ViewModel() {
 
     fun updateUiStatePalabras(palabra: String) {
         _uiState.update {
-            it.palabras.add(palabra)
+            //añadimos la palabra a la lista
+            if (!it.palabras.contains(palabra))
+                it.palabras.add(palabra)
             it.copy(palabra = "")
 
         }
