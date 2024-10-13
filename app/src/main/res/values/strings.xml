@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">T08Navegacion</string>
+    <string name="inicio">Inicio</string>
+    <string name="datos_personales">Datos personales</string>
+    <string name="resumen">Resumen</string>
+    <string name="lista_palabras">Lista Palabras</string>
+    <string name="palabra">Palabra</string>
+
 </resources>
