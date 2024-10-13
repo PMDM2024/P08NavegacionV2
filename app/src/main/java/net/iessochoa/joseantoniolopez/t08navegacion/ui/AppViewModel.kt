@@ -1,4 +1,4 @@
-package net.iessochoa.joseantoniolopez.t08navegacion
+package net.iessochoa.joseantoniolopez.t08navegacion.ui
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +11,7 @@ data class AppUiState(
     val palabras: MutableList<String> = mutableListOf("Hola", "Mundo", "Jetpack", "Compose")
 )
 
-class AppViewModel :ViewModel(){
+class AppViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(AppUiState())
     val uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
 
@@ -20,6 +20,7 @@ class AppViewModel :ViewModel(){
             it.copy(palabra = palabra)
         }
     }
+
     fun updateUiStatePalabras(palabra: String) {
         _uiState.update {
             it.palabras.add(palabra)

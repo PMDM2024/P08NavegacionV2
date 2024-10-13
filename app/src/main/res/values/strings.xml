@@ -5,5 +5,6 @@
     <string name="resumen">Resumen</string>
     <string name="lista_palabras">Lista Palabras</string>
     <string name="palabra">Palabra</string>
+    <string name="vista_palabra">Vista Palabra</string>
 
 </resources>

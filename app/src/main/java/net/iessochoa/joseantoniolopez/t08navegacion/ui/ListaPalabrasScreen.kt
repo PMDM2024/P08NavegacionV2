@@ -1,4 +1,4 @@
-package net.iessochoa.joseantoniolopez.t08navegacion
+package net.iessochoa.joseantoniolopez.t08navegacion.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -20,8 +20,8 @@ import net.iessochoa.joseantoniolopez.t08navegacion.ui.theme.T08NavegacionTheme
 @Composable
 fun ListaPalabrasScreen(
     listaPalabras: List<String>,
-    onClickNueva: () -> Unit={},
-    onItemClick: (palabra: String) -> Unit={},
+    onClickNueva: () -> Unit = {},
+    onItemClick: (palabra: String) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -33,21 +33,23 @@ fun ListaPalabrasScreen(
                     .fillMaxWidth()
                     .clickable { onItemClick(item) }
             )
-           // if (index < listaPalabras.size - 1) {
+            // if (index < listaPalabras.size - 1) {
             HorizontalDivider(color = Color.Gray, thickness = 1.dp)
-          //  }
+            //  }
         }
         Spacer(Modifier.padding(16.dp))
         OutlinedButton(
             modifier = Modifier
                 //.align(LineHeightStyle.Alignment.CenterHorizontally)
                 .padding(8.dp),
-            onClick = onClickNueva) {
+            onClick = onClickNueva
+        ) {
             Text(text = "Nueva Palabra")
         }
     }
 
 }
+
 @Preview(showBackground = true)
 @Composable
 fun ListaPalabrasScreenPreview() {

@@ -1,4 +1,4 @@
-package net.iessochoa.joseantoniolopez.t08navegacion
+package net.iessochoa.joseantoniolopez.t08navegacion.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,18 +17,20 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import net.iessochoa.joseantoniolopez.t08navegacion.R
 
 /**
  * Define las pantallas de la app y sus títulos
  */
 enum class AppScreen(@StringRes val title: Int) {
-    ListaPalabras(title =R.string.lista_palabras),
-    Palabra(title = R.string.palabra)
+    ListaPalabras(title = R.string.lista_palabras),
+    Palabra(title = R.string.palabra),
+    VistaPalabra(title = R.string.vista_palabra)
 }
 //si da error viewModel añadir manualmente import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun App(
-    viewModel: AppViewModel= viewModel(),
+    viewModel: AppViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
     ){
     // Get current back stack entry
@@ -56,6 +58,7 @@ fun App(
                 .verticalScroll(rememberScrollState())
                 .padding(innerPadding)
         ) {
+            //LISTA PALABRAS
             composable(route = AppScreen.ListaPalabras.name) {
                 ListaPalabrasScreen(
                     listaPalabras = uiState.palabras,
@@ -67,6 +70,7 @@ fun App(
                     modifier = Modifier.fillMaxSize()
                 )
             }
+            //AGREGAR PALABRA
             composable(route = AppScreen.Palabra.name) {
                 PalabraScreen(
                     uiState.palabra,
@@ -77,6 +81,24 @@ fun App(
                         //retrocedemos a la pantalla anterior
                         navController.navigateUp()
                     },
+                    onMostrar = {
+                        navController.navigate(AppScreen.VistaPalabra.name)
+                    }
+                )
+            }
+            //VER PALABRA
+            composable(route = AppScreen.VistaPalabra.name){
+                VistaPalabraScreen(
+                    uiState.palabra,
+                    onVolver = {
+                        navController.navigateUp()
+                               },
+                    onVolverAInicio = {
+                        viewModel.updateUiStatePalabra("")
+                        navController.popBackStack(
+                            AppScreen.ListaPalabras.name,
+                            inclusive = false)
+                    }
                 )
             }
 
