@@ -28,6 +28,7 @@ fun AppBar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
+        //Recuperamos el título del enum AppScreen
         title = { Text(text = stringResource(pantallaActual.title)) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -36,6 +37,7 @@ fun AppBar(
         navigationIcon = {
             //si es la primera pantalla no se muestra el botón de navegación
             if (puedeNavegarAtras) {
+                //lambda que iría a la pantalla anterior
                 IconButton(onClick = navegaAtras) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -46,5 +48,4 @@ fun AppBar(
             }
         }
     )
-
 }

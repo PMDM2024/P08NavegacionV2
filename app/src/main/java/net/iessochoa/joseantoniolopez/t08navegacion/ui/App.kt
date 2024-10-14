@@ -20,12 +20,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import net.iessochoa.joseantoniolopez.t08navegacion.R
 
 /**
- * Define las pantallas de la app y sus títulos
+ * Define las rutas a pantallas de la app y sus títulos
  */
 enum class AppScreen(@StringRes val title: Int) {
     ListaPalabras(title = R.string.lista_palabras),
     Palabra(title = R.string.palabra),
     VistaPalabra(title = R.string.vista_palabra)
+
 }
 //si da error viewModel añadir manualmente import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
@@ -61,10 +62,10 @@ fun App(
             //LISTA PALABRAS
             composable(route = AppScreen.ListaPalabras.name) {
                 ListaPalabrasScreen(
-                    listaPalabras = uiState.palabras,
+                    listaPalabras = uiState.listaPalabras,
                     onClickNueva = { navController.navigate(AppScreen.Palabra.name) },
                     onItemClick = {
-                        viewModel.updateUiStatePalabra(it)
+                        viewModel.actualizaPalabra(it)
                         navController.navigate(AppScreen.Palabra.name)
                                   },
                     modifier = Modifier.fillMaxSize()
@@ -74,9 +75,9 @@ fun App(
             composable(route = AppScreen.Palabra.name) {
                 PalabraScreen(
                     uiState.palabra,
-                    onPalabraChange = { viewModel.updateUiStatePalabra(it) },
+                    onPalabraChange = { viewModel.actualizaPalabra(it) },
                     onSave = {
-                        viewModel.updateUiStatePalabras(uiState.palabra)
+                        viewModel.actualizaListaPalabras(uiState.palabra)
                         //navController.navigate(AppScreen.ListaPalabras.name,)
                         //retrocedemos a la pantalla anterior
                         navController.navigateUp()
@@ -94,7 +95,7 @@ fun App(
                         navController.navigateUp()
                                },
                     onVolverAInicio = {
-                        viewModel.updateUiStatePalabra("")
+                        viewModel.actualizaPalabra("")
                         navController.popBackStack(
                             AppScreen.ListaPalabras.name,
                             inclusive = false)
@@ -105,6 +106,6 @@ fun App(
         }//navhost
     }//scaffold
 }
-//fun navegarAPalabraScreen
+
 
 

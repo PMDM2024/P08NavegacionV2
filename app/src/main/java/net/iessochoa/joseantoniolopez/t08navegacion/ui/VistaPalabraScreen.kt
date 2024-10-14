@@ -22,6 +22,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.iessochoa.joseantoniolopez.t08navegacion.R
 
+/**
+ * Muestra la palabra actual en un formato vistoso
+ * @param palabra palabra actual
+ * @param onVolver Lambda que se ejecuta al pulsar el botón de volver.
+ */
 @Composable
 fun VistaPalabraScreen(
     palabra: String,
@@ -35,11 +40,13 @@ fun VistaPalabraScreen(
         //verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        //creamos una fuente, desde una fuente descargada
         val MiFuente = FontFamily(
             Font(R.font.dancing_script, FontWeight.Normal) // Asocia la fuente con su peso
         )
         Text(
             text = palabra,
+            //creamos el estilo del texto con una fuente descargada
             style =TextStyle(
                 fontFamily = MiFuente,
                 fontSize = 80.sp,
@@ -48,13 +55,13 @@ fun VistaPalabraScreen(
             color = Color.Blue,
             modifier = Modifier.padding(bottom = 16.dp, top = 32.dp)
         )
-
+        //Volverá a la pantalla anterior
         Button(onClick = onVolver) {
             Text("Volver Atrás")
         }
 
         Spacer(modifier = Modifier.height(8.dp))
-
+        //Volverá a la pantalla inicial
         Button(onClick = onVolverAInicio) {
             Text("Volver a inicio")
         }

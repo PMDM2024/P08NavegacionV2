@@ -16,6 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+/**
+ * Pantalla que permitirá añadir una nueva palabra.
+ * @param palabra palabra actual
+ * @param onPalabraChange Lambda que se ejecuta al cambiar el texto del campo de texto
+ * @param onSave Lambda que se ejecuta al pulsar el botón de guardar. Esta acción es responsable le [AppViewModel]
+ * @param onMostrar Lambda que se ejecuta al pulsar el botón de mostrar.Esta acción debe navegar a [VistaPalabraScreen]
+ */
 @Composable
 fun PalabraScreen(
     palabra: String,
