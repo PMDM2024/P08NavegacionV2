@@ -34,17 +34,24 @@ fun App(
     viewModel: AppViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
     ){
-    // Get current back stack entry
+    // Obtener la pantalla actual de la pila
     val backStackEntry by navController.currentBackStackEntryAsState()
-    // Get the name of the current screen
+    // Obtener el nombre de la pantalla actual.
+    // Si es null, usar ListaPalabras como valor predeterminado que es la pantalla inicial
     val currentScreen = AppScreen.valueOf(
         backStackEntry?.destination?.route ?: AppScreen.ListaPalabras.name
     )
     Scaffold(
         topBar = {
+            //Barra superior de la app
             AppBar(
+                //muestra el título de la pantalla
                 pantallaActual = currentScreen,
+                //si es la primera pantalla no se puede navegar hacia atrás
+                //no hay pantalla anterior en la pila de navegación
                 puedeNavegarAtras = navController.previousBackStackEntry != null,
+                //Esta lambda se ejecuta al pulsar la flecha de navegación hacia atrás
+                //de la barra superior
                 navegaAtras = { navController.navigateUp() }
             )
         }
@@ -53,6 +60,7 @@ fun App(
 
         NavHost(
             navController = navController,
+            //pantalla inicial
             startDestination = AppScreen.ListaPalabras.name,
             modifier = Modifier
                 .fillMaxSize()
@@ -62,10 +70,17 @@ fun App(
             //LISTA PALABRAS
             composable(route = AppScreen.ListaPalabras.name) {
                 ListaPalabrasScreen(
+                    //lista de palabras
                     listaPalabras = uiState.listaPalabras,
+                    //Permite navegar hacia la pantalla de palabra desde el botón de nueva palabra
                     onClickNueva = { navController.navigate(AppScreen.Palabra.name) },
+                    //Permite navegar hacia la pantalla de palabra desde el click de una palabra
                     onItemClick = {
+                        //esta lambda recibe la palabra clicada.
+                        // Actualizamos la palabra a mostrar
+                        // y navega a PalabrasScreen
                         viewModel.actualizaPalabra(it)
+                        //Navegamos a la pantalla de palabra
                         navController.navigate(AppScreen.Palabra.name)
                                   },
                     modifier = Modifier.fillMaxSize()
@@ -74,28 +89,32 @@ fun App(
             //AGREGAR PALABRA
             composable(route = AppScreen.Palabra.name) {
                 PalabraScreen(
+                    //le pasamos la palabra de la lista o ""
                     uiState.palabra,
                     onPalabraChange = { viewModel.actualizaPalabra(it) },
                     onSave = {
+                        //añadimos la palabra a la lista
                         viewModel.actualizaListaPalabras(uiState.palabra)
-                        //navController.navigate(AppScreen.ListaPalabras.name,)
                         //retrocedemos a la pantalla anterior
                         navController.navigateUp()
                     },
                     onMostrar = {
+                        //Navegamos a la pantalla de vista palabra
                         navController.navigate(AppScreen.VistaPalabra.name)
                     }
                 )
             }
-            //VER PALABRA
+            //VER VISTA DE PALABRA
             composable(route = AppScreen.VistaPalabra.name){
                 VistaPalabraScreen(
                     uiState.palabra,
                     onVolver = {
+                        //vamos a la pantalla anterior
                         navController.navigateUp()
                                },
                     onVolverAInicio = {
                         viewModel.actualizaPalabra("")
+                        //vamos a la pantalla inicial vaciando la pila de navegación
                         navController.popBackStack(
                             AppScreen.ListaPalabras.name,
                             inclusive = false)
