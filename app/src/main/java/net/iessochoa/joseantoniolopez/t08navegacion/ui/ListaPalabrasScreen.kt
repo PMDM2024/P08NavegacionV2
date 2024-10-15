@@ -36,6 +36,7 @@ fun ListaPalabrasScreen(
     listaPalabras: List<String>,
     onClickNueva: () -> Unit = {},
     onItemClick: (palabra: String) -> Unit = {},
+    onItemIconClick: (palabra: String) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -50,6 +51,8 @@ fun ListaPalabrasScreen(
                     contentDescription = "mostrar",
                     modifier = Modifier.clickable {
                         // ECHO: falta lambda
+                        onItemIconClick(item)
+                        
                     }
                 )
                 Text(
