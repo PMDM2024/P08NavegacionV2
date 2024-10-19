@@ -47,11 +47,14 @@ fun PalabraScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Row(modifier = Modifier) {
-            Button(onClick = onSave) {
+            Button(onClick = onSave,
+                enabled = palabra.isNotEmpty()) {
                 Text("Guardar")
+
             }
             Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = onMostrar) {
+            Button(onClick = onMostrar,
+                enabled = palabra.isNotEmpty()) {
                 Text("Ver Palabra")
             }
 
