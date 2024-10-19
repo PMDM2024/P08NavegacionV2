@@ -83,6 +83,10 @@ fun App(
                         //Navegamos a la pantalla de palabra
                         navController.navigate(AppScreen.Palabra.name)
                                   },
+                    onItemIconClick = {
+                        viewModel.actualizaPalabra(it)
+                        navController.navigate(AppScreen.VistaPalabra.name)
+                    },
                     modifier = Modifier.fillMaxSize()
                 )
             }
