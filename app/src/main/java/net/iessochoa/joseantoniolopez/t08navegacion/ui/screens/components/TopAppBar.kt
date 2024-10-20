@@ -14,21 +14,21 @@ import androidx.compose.ui.Modifier
 
 /**
  * Composable que define la barra de navegación superior de la app
- * @param pantallaActual pantalla actual. Permite mostrar el titulo correspondiente.
+ * @param tituloPantallaActual pantalla actual. Permite mostrar el titulo correspondiente.
  * @param puedeNavegarAtras indica si se puede navegar hacia atrás. La pantalla de inicio no puede tener navegación hacia atrás
  * @param navegaAtras acción de navegación hacia atrás. Lambda que se ejecuta al pulsar el botón de navegación hacia atrás
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(
-    pantallaActual: String,
+    tituloPantallaActual: String,
     puedeNavegarAtras: Boolean,
     navegaAtras: () -> Unit={},
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
         //Recuperamos el título del enum AppScreen
-        title = { Text(text = pantallaActual) },
+        title = { Text(text = tituloPantallaActual) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),

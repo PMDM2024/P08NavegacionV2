@@ -7,31 +7,49 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import net.iessochoa.joseantoniolopez.t08navegacion.data.DataSource
 
-class PalabrasViewModel: ViewModel() {
+/**
+ * Estado y acciones de la pantalla de PalabraScreen.
+ */
+class PalabrasViewModel : ViewModel() {
     private val _uiStatePalabra = MutableStateFlow(UiStatePalabra())
     val uiStatePalabra: StateFlow<UiStatePalabra> = _uiStatePalabra.asStateFlow()
 
-    fun guardarPalabra(pos:Int, palabra: String) {
-        _uiStatePalabra.update {
-            DataSource.actualizaPalabra(pos,palabra)
-            it
-        }
+    /**
+     * Actualiza la palabra en la posición indicada. No actualiza
+     * el estado porque sale de la pantalla
+     */
+    fun guardarPalabra(pos: Int, palabra: String) {
+         DataSource.actualizaPalabra(pos, palabra)
+
     }
-     fun nuevaPalabra(palabra: String) {
-         DataSource.nuevaPalabra(palabra)
-     }
+
+    /**
+     * Añade una nueva palabra a la lista.
+     */
+    fun nuevaPalabra(palabra: String) {
+        DataSource.nuevaPalabra(palabra)
+    }
+
+    /**
+     * Busca la palabra en la posición indicada.
+     */
     fun buscarPalabra(cod: Int?) {
         _uiStatePalabra.update {
             it.copy(
-                palabra = if(cod==null) "" else DataSource.buscarPalabra(cod))
+                palabra = if (cod == null) "" else DataSource.buscarPalabra(cod)
+            )
         }
     }
+
+    /**
+     * Actualiza la palabra  de FieldText
+     */
     fun actualizaPalabra(palabra: String) {
-            _uiStatePalabra.update {
-                it.copy(
-                    palabra = palabra
-                )
-            }
+        _uiStatePalabra.update {
+            it.copy(
+                palabra = palabra
+            )
+        }
     }
 
 }

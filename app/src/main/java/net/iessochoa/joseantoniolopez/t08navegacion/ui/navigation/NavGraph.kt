@@ -9,63 +9,85 @@ import kotlinx.serialization.Serializable
 import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.listapalabrasscreen.ListaPalabrasScreen
 import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.palabrascreen.PalabraScreen
 import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.vistapalabrascreen.VistaPalabraScreen
-import kotlin.reflect.typeOf
 
-/**
- * Define las rutas a pantallas de la app y sus títulos
- */
-/*enum class AppScreen(@StringRes val title: Int) {
-    ListaPalabras(title = R.string.lista_palabras),
-    Palabra(title = R.string.palabra),
-    VistaPalabra(title = R.string.vista_palabra)
+//Pantallas:
+// Definimos las pantallas que queremos navegar donde  las llamamos mediante los siguientes
+// elementos Serializable
 
-}*/
+// ListaPalabrasScreen: Pantalla inicial de la app que muestra la lista de palabras
+//la definimos como object porque no tiene parámetros
 @Serializable
 object ListaPalabras
 
+//las Pantallas con parámetros se definen como data class
 @Serializable
-data class Palabra(val posPalabra: Int?=null)
+data class Palabra(val posPalabra: Int? = null)
 
 @Serializable
 data class VistaPalabra(val posPalabra: Int)
 
+//Grafo de Navegación
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = ListaPalabras) {
-        composable<ListaPalabras> {
-            ListaPalabrasScreen()
-        }
-
+    NavHost(
+        navController = navController,
+        //pantalla de inicio
+        startDestination = ListaPalabras
+    ) {
+        //ruta a la pantalla ListaPalabrasScreen. Pantalla inicial de la app
         composable<ListaPalabras> {
             ListaPalabrasScreen(
                 onClickNueva = {
-                    navController.navigate(Palabra(null))
-                               },
-                onItemClick = { posPalabra ->
+                    // Navegamos a la pantalla PalabraScreen. Pasamos null porque es una nueva palabra
+                    navController.navigate(Palabra())
+                },
+                //Navegamos a la pantalla Palabra editanto una palabra existente.
+                // Pasamos la posición de la palabra en la lista
+                onItemModificarClick = { posPalabra ->
                     navController.navigate(Palabra(posPalabra))
                 },
-                onItemIconClick = { posPalabra ->
+                //Navegamos a la pantalla VistaPalabraScreen.
+                // Pasamos la posición de la palabra en la lista
+                onItemVerClick = { posPalabra ->
                     navController.navigate(VistaPalabra(posPalabra))
                 }
             )
         }
+        //ruta a la pantalla PalabraScreen.
+        //backStarckEntry contiene los paráetros pasados en la navegación
         composable<Palabra> { backStackEntry ->
+            //recuperamos el parámetro posPalabra de la navegación
             val palabra: Palabra = backStackEntry.toRoute()
             PalabraScreen(
-                posPalabra =palabra.posPalabra ,
-                onVolver = { navController.navigateUp() },
-                onMostrar = { navController.navigate(VistaPalabra(palabra.posPalabra!!)) }
+                posPalabra = palabra.posPalabra,
+                //pasamos la lambda para volver a la pantalla anterior
+                onVolver = {
+                    navController.navigateUp()
+                },
+                //pasamos la lambda para navegar a la pantalla de vista palabra si no es nueva
+                onMostrar = {
+                    if (palabra.posPalabra != null)
+                        navController.navigate(VistaPalabra(palabra.posPalabra))
+                }
             )
         }
+        //ruta a la pantalla VistaPalabraScreen.
         composable<VistaPalabra> { backStackEntry ->
-            val palabra: Palabra = backStackEntry.toRoute()
+            //recuperamos el parámetro posPalabra de la navegación
+            val palabra: VistaPalabra = backStackEntry.toRoute()
             VistaPalabraScreen(
-                posPalabra = palabra.posPalabra!!,
-                onVolver = { navController.navigateUp() },
-                onVolverAInicio = {  navController.popBackStack(
-                    ListaPalabras,
-                    inclusive = false) }
+                posPalabra = palabra.posPalabra,
+                onVolver = {
+                    navController.navigateUp()
+                },
+                onVolverAInicio = {
+                    //vaciamos la pila de navegación y mostramos la pantalla de inicio
+                    navController.popBackStack(
+                        ListaPalabras,
+                        inclusive = false
+                    )
+                }
             )
         }
 

@@ -1,10 +1,13 @@
 package net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.vistapalabrascreen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -45,7 +48,7 @@ fun VistaPalabraScreen(
             //Barra superior de la app
             AppBar(
                 //muestra el título de la pantalla
-                pantallaActual = "Ver Palabra: " + uiVistaStatePalabra.palabra,
+                tituloPantallaActual = "Ver Palabra: " + uiVistaStatePalabra.palabra,
 
                 //si es la primera pantalla no se puede navegar hacia atrás
                 //no hay pantalla anterior en la pila de navegación
@@ -78,16 +81,23 @@ fun VistaPalabraScreen(
                 color = Color.Blue,
                 modifier = Modifier.padding(bottom = 16.dp, top = 32.dp)
             )
+
             //Volverá a la pantalla anterior
-            Button(onClick = onVolver) {
-                Text("Volver Atrás")
+            Row(modifier = Modifier,
+                ) {
+                Button(onClick = onVolver) {
+                    Text("Volver Atrás")
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Button(onClick = onVolverAInicio) {
+                    Text("Volver a Inicio")
+                }
+
+
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
-            //Volverá a la pantalla inicial
-            Button(onClick = onVolverAInicio) {
-                Text("Volver a inicio")
-            }
+
+
         }
     }
 }

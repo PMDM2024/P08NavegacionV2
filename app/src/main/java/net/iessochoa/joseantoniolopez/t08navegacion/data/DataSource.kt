@@ -1,5 +1,8 @@
 package net.iessochoa.joseantoniolopez.t08navegacion.data
 
+/**
+ * Fuente de datos de la aplicación. Podría ser una base de datos, un servicio web, etc.
+ */
 object DataSource {
     val listaPalabras = mutableListOf("Hola", "Mundo", "Jetpack", "Compose")
 
