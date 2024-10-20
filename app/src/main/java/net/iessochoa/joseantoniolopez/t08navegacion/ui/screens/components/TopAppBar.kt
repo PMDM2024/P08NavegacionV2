@@ -1,4 +1,4 @@
-package net.iessochoa.joseantoniolopez.t08navegacion.ui
+package net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -11,7 +11,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 
 /**
  * Composable que define la barra de navegación superior de la app
@@ -22,14 +21,14 @@ import androidx.compose.ui.res.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(
-    pantallaActual: AppScreen,
+    pantallaActual: String,
     puedeNavegarAtras: Boolean,
-    navegaAtras: () -> Unit,
+    navegaAtras: () -> Unit={},
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
         //Recuperamos el título del enum AppScreen
-        title = { Text(text = stringResource(pantallaActual.title)) },
+        title = { Text(text = pantallaActual) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),

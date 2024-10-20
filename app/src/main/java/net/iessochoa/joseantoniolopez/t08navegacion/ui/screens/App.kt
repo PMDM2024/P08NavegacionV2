@@ -1,6 +1,5 @@
-package net.iessochoa.joseantoniolopez.t08navegacion.ui
+package net.iessochoa.joseantoniolopez.t08navegacion.ui.screens
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -17,22 +16,22 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import net.iessochoa.joseantoniolopez.t08navegacion.R
+import net.iessochoa.joseantoniolopez.t08navegacion.ui.navigation.AppNavigation
 
-/**
- * Define las rutas a pantallas de la app y sus títulos
- */
-enum class AppScreen(@StringRes val title: Int) {
-    ListaPalabras(title = R.string.lista_palabras),
-    Palabra(title = R.string.palabra),
-    VistaPalabra(title = R.string.vista_palabra)
+import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.listapalabrasscreen.ListaPalabrasScreen
+import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.palabrascreen.PalabraScreen
+import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.vistapalabrascreen.VistaPalabraScreen
+import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.listapalabrasscreen.ListaViewModel
 
+@Composable
+fun App(){
+    AppNavigation()
 }
 //si da error viewModel añadir manualmente import androidx.lifecycle.viewmodel.compose.viewModel
+/*
 @Composable
 fun App(
-    viewModel: AppViewModel = viewModel(),
-    navController: NavHostController = rememberNavController()
+       navController: NavHostController = rememberNavController()
     ){
     // Obtener la pantalla actual de la pila
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -98,7 +97,7 @@ fun App(
                     onPalabraChange = { viewModel.actualizaPalabra(it) },
                     onSave = {
                         //añadimos la palabra a la lista
-                        viewModel.actualizaListaPalabras(uiState.palabra)
+                        viewModel.nuevaPalabra(uiState.palabra)
                         //retrocedemos a la pantalla anterior
                         navController.navigateUp()
                     },
@@ -129,6 +128,7 @@ fun App(
         }//navhost
     }//scaffold
 }
+*/
 
 
 

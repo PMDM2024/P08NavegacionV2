@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    //kotlin("plugin.serialization") version "2.0.20"
+    alias(libs.plugins.jetbrainsKotlinSerialization)
+
 }
 
 android {
@@ -62,6 +65,7 @@ dependencies {
 
 
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
