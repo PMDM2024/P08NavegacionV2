@@ -44,7 +44,6 @@ import net.iessochoa.joseantoniolopez.t08navegacion.ui.theme.T08NavegacionTheme
 @Composable
 fun ListaPalabrasScreen(
     viewModel: ListaViewModel = viewModel(),
-    //listaPalabras: List<String>,
     onClickNueva: () -> Unit = {},
     onItemModificarClick: (pos: Int) -> Unit = {},
     onItemVerClick: (pos: Int) -> Unit = {},
