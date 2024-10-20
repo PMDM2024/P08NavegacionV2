@@ -1,5 +1,6 @@
 package net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.palabrascreen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,17 +9,31 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
+import net.iessochoa.joseantoniolopez.t08navegacion.R
 import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.components.AppBar
 import net.iessochoa.joseantoniolopez.t08navegacion.ui.screens.listapalabrasscreen.ListaViewModel
 
@@ -39,6 +54,9 @@ fun PalabraScreen(
     viewModel.buscarPalabra(posPalabra)
     val isNuevaPalabra = posPalabra == null
     val uiStatePalabra by viewModel.uiStatePalabra.collectAsState()
+    //val uiStatePalabra by viewModel.uiStatePalabra.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             //Barra superior de la app
@@ -53,8 +71,38 @@ fun PalabraScreen(
                 //de la barra superior
                 navegaAtras = onVolver
             )
+        },
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick ={
+                    if (uiStatePalabra.palabra.isNotEmpty()) {
+                        if (isNuevaPalabra)
+                            viewModel.nuevaPalabra(uiStatePalabra.palabra)
+                        else
+                            viewModel.guardarPalabra(posPalabra!!, uiStatePalabra.palabra)
+                        onVolver()
+                    }else{
+                        scope.launch {
+                            snackbarHostState.showSnackbar(
+                                message = "La palabra no puede estar vacía",
+                                duration = SnackbarDuration.Short
+                            )
+                        }
+
+
+                    }
+                }
+            ) {
+                Icon(
+                    painterResource(R.drawable.ic_guardar)
+                    , "Nueva Palabra")
+            }
         }
     ) { padding ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -72,26 +120,17 @@ fun PalabraScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Row(modifier = Modifier) {
-                Button(//Guardar
-                    onClick = {
-                        if (isNuevaPalabra)
-                            viewModel.nuevaPalabra(uiStatePalabra.palabra)
-                        else
-                            viewModel.guardarPalabra(posPalabra!!,uiStatePalabra.palabra)
-                        onVolver()
-                    },
-                    enabled = uiStatePalabra.palabra.isNotEmpty()
-                ) {
-                    Text("Guardar")
 
+                if(!isNuevaPalabra){
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Button(//Mostrar
+                        onClick = onMostrar,
+                        enabled = uiStatePalabra.palabra.isNotEmpty()
+                    ) {
+                        Text("Ver Palabra")
+                    }
                 }
-                Spacer(modifier = Modifier.width(16.dp))
-                Button(//Mostrar
-                    onClick = onMostrar,
-                    enabled = uiStatePalabra.palabra.isNotEmpty()
-                ) {
-                    Text("Ver Palabra")
-                }
+
 
             }
         }
