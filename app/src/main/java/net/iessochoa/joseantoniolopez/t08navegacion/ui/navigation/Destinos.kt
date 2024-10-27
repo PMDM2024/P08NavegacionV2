@@ -9,11 +9,11 @@ import kotlinx.serialization.Serializable
 // ListaPalabrasScreen: Pantalla inicial de la app que muestra la lista de palabras
 //la definimos como object porque no tiene parámetros
 @Serializable
-object ListaPalabras
+object ListaPalabrasDestination
 
 //las Pantallas con parámetros se definen como data class
 @Serializable
-data class Palabra(val posPalabra: Int? = null)
+data class PalabraDestination(val posPalabra: Int? = null)
 
 @Serializable
-data class VistaPalabra(val posPalabra: Int)
+data class VistaPalabraDestination(val posPalabra: Int)

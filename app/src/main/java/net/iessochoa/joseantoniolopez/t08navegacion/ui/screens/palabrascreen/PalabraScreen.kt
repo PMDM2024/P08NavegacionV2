@@ -111,7 +111,7 @@ fun PalabraScreen(
 
             OutlinedTextField(
                 value = uiStatePalabra.palabra,
-                onValueChange = {viewModel.actualizaPalabra(it) },
+                onValueChange = {viewModel.actualizaEstadoPalabra(it) },
                 label = { Text("Palabra") },
                 singleLine = true,
             )

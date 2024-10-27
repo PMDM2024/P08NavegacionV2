@@ -20,9 +20,7 @@ class PalabrasViewModel : ViewModel() {
      */
     fun guardarPalabra(pos: Int, palabra: String) {
          DataSource.actualizaPalabra(pos, palabra)
-
     }
-
     /**
      * Añade una nueva palabra a la lista.
      */
@@ -44,7 +42,7 @@ class PalabrasViewModel : ViewModel() {
     /**
      * Actualiza la palabra  de FieldText
      */
-    fun actualizaPalabra(palabra: String) {
+    fun actualizaEstadoPalabra(palabra: String) {
         _uiStatePalabra.update {
             it.copy(
                 palabra = palabra
