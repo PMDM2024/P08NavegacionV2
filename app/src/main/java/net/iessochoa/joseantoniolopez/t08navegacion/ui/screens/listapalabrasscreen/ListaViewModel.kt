@@ -14,6 +14,4 @@ class ListaViewModel : ViewModel() {
     private val _uiStateLista = MutableStateFlow(ListaUiState())
     val uiStateLista: StateFlow<ListaUiState> = _uiStateLista.asStateFlow()
 
-    fun listaPalabras() = _uiStateLista.value.listaPalabras
-
     }

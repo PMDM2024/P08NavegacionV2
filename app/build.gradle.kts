@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-
+//serializacion
     alias(libs.plugins.jetbrainsKotlinSerialization)
 
 }
@@ -69,8 +69,6 @@ dependencies {
 //Serializacion
     implementation(libs.kotlinx.serialization.json)
 
-
-    // ViewModel
 
 
 
